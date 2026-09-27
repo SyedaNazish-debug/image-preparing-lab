@@ -5,6 +5,7 @@ from image_processor import (
     calculate_scale,
     crop_image,
     resize_to_target,
+    validate_crop_coordinates,
 )
 
 def test_calculate_megapixels():
@@ -43,3 +44,43 @@ def test_crop_image():
     )
 
     assert cropped.size == (2036, 815)
+    
+def test_validate_crop_coordinates_valid():
+    assert validate_crop_coordinates(
+        0,
+        185,
+        2036,
+        1000,
+        2036,
+        1184,
+    )
+
+def test_validate_crop_coordinates_invalid_order():
+    assert not validate_crop_coordinates(
+        1000,
+        185,
+        500,
+        1000,
+        2036,
+        1184,
+    )
+
+def test_validate_crop_coordinates_outside_image():
+    assert not validate_crop_coordinates(
+        0,
+        0,
+        2500,
+        1000,
+        2036,
+        1184,
+    )
+
+def test_validate_crop_coordinates_negative():
+    assert not validate_crop_coordinates(
+        -10,
+        0,
+        1000,
+        1000,
+        2036,
+        1184,
+    )

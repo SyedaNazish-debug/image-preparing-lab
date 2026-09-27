@@ -7,6 +7,7 @@ from image_processor import (
     calculate_megapixels,
     crop_image,
     resize_to_target,
+    validate_crop_coordinates,
 )
 
 TARGET_MP = 5.0
@@ -97,13 +98,20 @@ if uploaded_file is not None:
             value=height,
             step=1,
         )
+    if not validate_crop_coordinates(
+    left,
+    top,
+    right,
+    bottom,
+    width,
+    height,
+):
 
-    if left >= right or top >= bottom:
-
-        st.error(
-            "Invalid crop area. Make sure Left < Right "
-            "and Top < Bottom."
-        )
+     st.error(
+        "Invalid crop area. Make sure the crop "
+        "coordinates stay inside the image and "
+        "Left < Right and Top < Bottom."
+    )
 
     else:
 

@@ -37,3 +37,21 @@ def resize_to_target(image, target_mp):
 
 def crop_image(image, left, top, right, bottom):
     return image.crop((left, top, right, bottom))
+def validate_crop_coordinates(
+    left,
+    top,
+    right,
+    bottom,
+    width,
+    height,
+):
+    if left < 0 or top < 0:
+        return False
+
+    if right > width or bottom > height:
+        return False
+
+    if left >= right or top >= bottom:
+        return False
+
+    return True
