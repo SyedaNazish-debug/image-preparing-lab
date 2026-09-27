@@ -1,7 +1,10 @@
 from PIL import Image
 
-from app import calculate_megapixels, calculate_scale, resize_to_target
-
+from image_processor import (
+    calculate_megapixels,
+    calculate_scale,
+    resize_to_target,
+)
 
 def test_calculate_megapixels():
     assert round(calculate_megapixels(2036, 1184), 2) == 2.41
@@ -27,3 +30,4 @@ def test_resize_to_target():
     final_mp = (width * height) / 1_000_000
 
     assert final_mp >= 5.0
+    
