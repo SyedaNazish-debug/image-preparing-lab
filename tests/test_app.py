@@ -3,6 +3,7 @@ from PIL import Image
 from image_processor import (
     calculate_megapixels,
     calculate_scale,
+    crop_image,
     resize_to_target,
 )
 
@@ -30,4 +31,15 @@ def test_resize_to_target():
     final_mp = (width * height) / 1_000_000
 
     assert final_mp >= 5.0
-    
+def test_crop_image():
+    image = Image.new("RGB", (2036, 1184))
+
+    cropped = crop_image(
+        image,
+        0,
+        185,
+        2036,
+        1000,
+    )
+
+    assert cropped.size == (2036, 815)

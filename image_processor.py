@@ -33,3 +33,7 @@ def resize_to_target(image, target_mp):
     )
 
     return resized, scale
+
+
+def crop_image(image, left, top, right, bottom):
+    return image.crop((left, top, right, bottom))
